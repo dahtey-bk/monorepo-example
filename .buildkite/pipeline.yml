@@ -1,4 +1,12 @@
 steps:
+  - key: "dd-measures-01"
+    label: "step_01"
+    command: "buildkite-agent meta-data set \"dd_measures.first_metric\" 1"
+
+  - key: "dd_key_test_01"
+    label: "step_02"
+    command: "buildkite-agent meta-data set \"dd_tags.key\" dd_key_test_01"
+
   - label: Detect changed projects
     key: diff
     soft_fail: true
@@ -43,3 +51,7 @@ steps:
   
   - command: echo "This and subsequent steps run independently"
     depends_on: end-gate
+
+  - key: "dd-measures-02"
+    label: "step_03"
+    command: "buildkite-agent meta-data set \"dd_measures.last_metric\" 2"
