@@ -1,10 +1,10 @@
 steps:
   - key: "dd-measures-01"
-    label: "step_01"
+    label: "Set First Metric"
     command: "buildkite-agent meta-data set \"dd_measures.first_metric\" 1"
 
   - key: "dd_key_test_01"
-    label: "step_02"
+    label: "Set Key Tag"
     command: "buildkite-agent meta-data set \"dd_tags.key\" dd_key_test_01"
 
   - label: Detect changed projects
@@ -22,6 +22,7 @@ steps:
                 trigger: monorepo-test-example
 
   - command: echo "Running unit tests"
+    label: "Run Unit Tests"
     key: unit-tests
 
   - command: echo "--> Start of concurrency gate"
@@ -33,10 +34,12 @@ steps:
   - wait
   
   - command: echo "Running deployment to staging environment"
+    label: "Deploy to Staging"
     key: stage-deploy
     depends_on: start-gate
   
   - command: echo "Running e2e tests after the deployment"
+    label: "Run E2E Tests"
     parallelism: 3
     depends_on:
       - stage-deploy
@@ -45,13 +48,15 @@ steps:
   - wait
   
   - command: echo "End of concurrency gate <--"
+    label: "End of Concurrency Gate"
     concurrency_group: gate
     concurrency: 1
     key: end-gate
   
   - command: echo "This and subsequent steps run independently"
+    label: "Run Subsequent Steps Independently"
     depends_on: end-gate
 
   - key: "dd-measures-02"
-    label: "step_03"
+    label: "Set Last Metric"
     command: "buildkite-agent meta-data set \"dd_measures.last_metric\" 2"
