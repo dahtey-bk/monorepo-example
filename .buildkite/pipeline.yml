@@ -26,6 +26,7 @@ steps:
     key: unit-tests
 
   - command: echo "--> Start of concurrency gate"
+    label: "Start of Concurrency Gate"
     concurrency_group: gate
     concurrency: 1
     key: start-gate
