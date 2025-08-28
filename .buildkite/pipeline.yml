@@ -88,6 +88,7 @@ steps:
 
 notify:
   - slack: 
-    channels: 
-      - "buildkite#dahtey-test-channel"
-    message: "Whole build finished message"
+      channels: 
+        - "buildkite#dahtey-test-channel"
+      message: "Whole build finished message"
+    if: build.branch == "main"
