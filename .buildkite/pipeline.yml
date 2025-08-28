@@ -1,47 +1,44 @@
 steps:
-- build:
-    env:
-      REPO_TAG: tidy-api
-      REVISION: 9775
-      DEPLOY_ENVIRONMENT: testing
-    branch: main
-    message: Deploy tidy-api (9775) to testing
-  label: Deploy to testing
-  trigger: pipeline-1
-  branches: feature/*
-- build:
-    env:
-      REPO_TAG: tidy-api
-      REVISION: 9775
-      DEPLOY_ENVIRONMENT: staging
-    branch: main
-    message: Deploy tidy-api (9775) to staging
-  label: Deploy to staging
-  trigger: pipeline-1
-  branches: main release/* hotfix/*
-- block: ":rocket: Release"
-  branches: main
-- build:
-    env:
-      REPO_TAG: tidy-api
-      REVISION: 9775
-      DEPLOY_ENVIRONMENT: production
-    branch: main
-    message: Deploy tidy-api (9775) to production
-  label: Deploy to production
-  trigger: pipeline-1
-  branches: main
-- build:
-    env:
-      REPO_TAG: tidy-api
-      REVISION: 9775
-      DEPLOY_ENVIRONMENT: sandbox
-    branch: main
-    message: Deploy tidy-api (9775) to sandbox
-  label: Deploy to sandbox
-  trigger: pipeline-1
-  branches: main
-- label: S3 copy package to latest
-  command: aws s3 cp --region ap-southeast-2 s3://loke-packages/tidy-api/9775.tar.gz
-    s3://loke-packages/tidy-api/latest.tar.gz
-  branches: main
+  - build:
+      env:
+        REPO_TAG: tidy-api
+        REVISION: 9775
+        DEPLOY_ENVIRONMENT: testing
+      message: Deploy tidy-api (9775) to testing
+    label: Deploy to testing
+    trigger: pipeline-1
+    branches: main feature/*
+  - build:
+      env:
+        REPO_TAG: tidy-api
+        REVISION: 9775
+        DEPLOY_ENVIRONMENT: staging
+      message: Deploy tidy-api (9775) to staging
+    label: Deploy to staging
+    trigger: pipeline-1
+    branches: main release/* hotfix/*
+  - block: ":rocket: Release"
+    branches: main
+  - build:
+      env:
+        REPO_TAG: tidy-api
+        REVISION: 9775
+        DEPLOY_ENVIRONMENT: production
+      branch: main
+      message: Deploy tidy-api (9775) to production
+    label: Deploy to production
+    trigger: pipeline-1
+    branches: main
+  - build:
+      env:
+        REPO_TAG: tidy-api
+        REVISION: 9775
+        DEPLOY_ENVIRONMENT: sandbox
+      message: Deploy tidy-api (9775) to sandbox
+    label: Deploy to sandbox
+    trigger: pipeline-1
+    branches: main
+  - label: S3 copy package to latest
+    command: aws s3 cp --region ap-southeast-2 s3://loke-packages/tidy-api/9775.tar.gz
+      s3://loke-packages/tidy-api/latest.tar.gz
+    branches: main
