@@ -2,10 +2,10 @@ steps:
   - label: "Store result"
     command: |
       buildkite-agent meta-data set "deployment-result" "SOURCE METADATA"
-  
+    meta_data:
+      SOURCE_BUILD_ID: "${BUILDKITE_BUILD_ID}"
   - trigger: pipeline-2
     build:
       env:
         PREVIOUS_BUILD_NUMBER: "${BUILDKITE_BUILD_NUMBER}"
-      meta_data:
-        source_build_id: "${BUILDKITE_BUILD_ID}"
+        # SOURCE_BUILD_ID: "${BUILDKITE_BUILD_ID}"
