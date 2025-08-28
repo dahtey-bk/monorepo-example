@@ -7,7 +7,7 @@ steps:
     branch: main
     message: Deploy tidy-api (9775) to testing
   label: Deploy to testing
-  trigger: hands-deployment
+  trigger: pipeline-1
   branches: feature/*
 - build:
     env:
@@ -17,7 +17,7 @@ steps:
     branch: main
     message: Deploy tidy-api (9775) to staging
   label: Deploy to staging
-  trigger: hands-deployment
+  trigger: pipeline-1
   branches: main release/* hotfix/*
 - block: ":rocket: Release"
   branches: main
@@ -29,7 +29,7 @@ steps:
     branch: main
     message: Deploy tidy-api (9775) to production
   label: Deploy to production
-  trigger: hands-deployment
+  trigger: pipeline-1
   branches: main
 - build:
     env:
@@ -39,7 +39,7 @@ steps:
     branch: main
     message: Deploy tidy-api (9775) to sandbox
   label: Deploy to sandbox
-  trigger: hands-deployment
+  trigger: pipeline-1
   branches: main
 - label: S3 copy package to latest
   command: aws s3 cp --region ap-southeast-2 s3://loke-packages/tidy-api/9775.tar.gz
