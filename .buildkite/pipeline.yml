@@ -12,7 +12,7 @@ steps:
              notify:
                - slack:
                    channels:
-                     - "#dahtey-public-test-channel"
+                     - "#dahtey-test-channel"
                    message: "Step1 has soft failed."
       YAML
       fi
@@ -89,6 +89,6 @@ steps:
 notify:
   - slack: 
       channels: 
-        - "#dahtey-public-test-channel"
+        - "#dahtey-test-channel"
       message: "Whole build finished message"
     if: build.branch == "main"
