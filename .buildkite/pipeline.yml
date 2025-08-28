@@ -1,4 +1,7 @@
 steps:
+  - command: exit -1
+    soft_fail: true
+    key: 'step1'
   - key: "dd-measures-01"
     label: "Set First Metric"
     command: "buildkite-agent meta-data set \"dd_measures.first_metric\" 1"
@@ -67,3 +70,7 @@ steps:
   - key: "dd-measures-02"
     label: "Set Last Metric"
     command: "buildkite-agent meta-data set \"dd_measures.last_metric\" 2"
+
+notify:
+  - email: "dahtey@buildkite.com"
+    if: $(buildkite-agent step get "outcome" --step "step1") == "soft_failed"
