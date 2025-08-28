@@ -7,7 +7,7 @@ steps:
     label: "Set Key Tag"
     command: "buildkite-agent meta-data set \"dd_tags.key\" dd_key_test_01"
 
-  - trigger: Pipeline 2
+  - trigger: pipeline-2
     key: trigger-pipeline-2
     label: ":rocket: Deploy event trigger"
     branches: main
