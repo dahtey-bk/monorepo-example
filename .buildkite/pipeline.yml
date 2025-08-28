@@ -2,6 +2,7 @@ steps:
   - label: "Store result"
     command: |
       result=$(pwd)
+      echo "Working directory: $result"
       buildkite-agent meta-data set "deployment-result" "$result"
   
   - trigger: pipeline-2
