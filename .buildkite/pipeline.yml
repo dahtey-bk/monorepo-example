@@ -1,5 +1,4 @@
-steps:
-  - label: annotate
+- label: annotate
     plugins:
       - bugcrowd/test-summary#v1.8.0:
           inputs:
@@ -9,4 +8,3 @@ steps:
           formatter:
             type: details
           context: test-summary
-
