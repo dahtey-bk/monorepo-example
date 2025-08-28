@@ -2,6 +2,21 @@ steps:
   - command: exit -1
     soft_fail: true
     key: 'step1'
+  - wait: ~
+  - command: |
+      if [ $(buildkite-agent step get "outcome" --step "step1") == "soft_failed" ]; then
+         cat <<- YAML | buildkite-agent pipeline upload
+         steps:
+           - label: "Notify slack about soft failed step"
+             command: echo "Notifying slack about the soft_failed step"
+             notify:
+               - slack:
+                   channels:
+                     - "buildkite#dahtey-test-channel"
+                   message: "Step1 has soft failed."
+      YAML
+      fi
+
   - key: "dd-measures-01"
     label: "Set First Metric"
     command: "buildkite-agent meta-data set \"dd_measures.first_metric\" 1"
@@ -72,5 +87,7 @@ steps:
     command: "buildkite-agent meta-data set \"dd_measures.last_metric\" 2"
 
 notify:
-  - email: "dahtey@buildkite.com"
-    if: $(buildkite-agent step get "outcome" --step "step1") == "soft_failed"
+  - slack: 
+    channels: 
+      - "buildkite#dahtey-test-channel"
+    message: "Whole build finished message"
