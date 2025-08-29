@@ -1,8 +1,4 @@
 steps:
-  - label: "Store result"
-    command: |
-      buildkite-agent meta-data set "deployment-result" "SOURCE METADATA"
-    
   - trigger: pipeline-2
     build:
       env:
