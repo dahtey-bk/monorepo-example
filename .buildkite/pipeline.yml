@@ -20,12 +20,19 @@ steps:
   - key: "dd-measures-01"
     label: "Set First Metric"
     command: "buildkite-agent meta-data set \"dd_measures.first_metric\" 1"
+    env:
+      BUILDKITE_MESSAGE: "CUSTOM MESSAGE FROM FIRST METRIC STEP"
 
   - key: "dd_key_test_01"
     label: "Set Key Tag"
     command: "buildkite-agent meta-data set \"dd_tags.key\" dd_key_test_01"
 
   - trigger: pipeline-2
+    build:
+      env:
+        PREVIOUS_BUILD_NUMBER: "${BUILDKITE_BUILD_NUMBER}"
+      meta_data:
+        SOURCE_BUILD_ID: "${BUILDKITE_BUILD_ID}"
     key: trigger-pipeline-2
     label: ":rocket: Deploy event trigger"
     branches: main
