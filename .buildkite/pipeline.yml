@@ -1,9 +1,11 @@
 steps:
-  - command: exit -1
+  - command: pylint myfile
     soft_fail: true
-    key: 'step1'
+    key: 'lint-step'
   - wait: ~
-  - command: |
+  - label: "Block build only if lint failed"
+    depends_on: "lint-step"
+    command: |
       if [ $(buildkite-agent step get "outcome" --step "step1") == "soft_failed" ]; then
          cat <<- YAML | buildkite-agent pipeline upload
          steps:
@@ -15,10 +17,7 @@ steps:
                      - "#dahtey-test-channel"
                    message: "Step1 has soft failed."
            - block: "Lint failed"
-             branches: main
-             allowed_teams:
-               - "testers"
-               - "everyone" 
+             key: "block-step"
       YAML
       fi
 
