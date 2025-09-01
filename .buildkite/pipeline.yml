@@ -6,7 +6,7 @@ steps:
   - label: "Block build only if lint failed"
     depends_on: "lint-step"
     command: |
-      if [ $(buildkite-agent step get "outcome" --step "step1") == "soft_failed" ]; then
+      if [ $(buildkite-agent step get "outcome" --step "lint-step") == "soft_failed" ]; then
          cat <<- YAML | buildkite-agent pipeline upload
          steps:
            - label: "Notify slack about soft failed step"
