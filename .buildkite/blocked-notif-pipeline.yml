@@ -20,7 +20,7 @@ steps:
   - block: ":rocket: Release"
     branches: main
     allowed_teams:
-      - "Testers"
+      - "testers"
   - build:
       env:
         REPO_TAG: tidy-api
