@@ -21,6 +21,7 @@ steps:
     branches: main
     allowed_teams:
       - "testers"
+      - "everyone"
   - build:
       env:
         REPO_TAG: tidy-api
