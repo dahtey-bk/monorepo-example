@@ -2,7 +2,10 @@ steps:
   - command: pylint myfile
     soft_fail: true
     key: 'lint-step'
-  - wait: ~
+  - wait:
+      key: wait-step
+      depends_on: 
+        - step: "lint-step"
   - label: "Block build only if lint failed"
     depends_on: "lint-step"
     command: |
