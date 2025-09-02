@@ -47,6 +47,7 @@ steps:
 
   - label: Detect changed projects
     key: diff
+    depends_on: trigger-pipeline-2
     soft_fail: true
     plugins:
       - 'monorepo-diff#v1.5.0':
@@ -62,6 +63,7 @@ steps:
   - command: echo "Running unit tests"
     label: "Run Unit Tests"
     key: unit-tests
+    depends_on: diff
 
   - command: echo "--> Start of concurrency gate"
     label: "Start of Concurrency Gate"
@@ -94,11 +96,13 @@ steps:
   
   - command: echo "This and subsequent steps run independently"
     label: "Run Subsequent Steps Independently"
+    key: subsequent-steps
     depends_on: end-gate
 
   - key: "dd-measures-02"
     label: "Set Last Metric"
     command: "buildkite-agent meta-data set \"dd_measures.last_metric\" 2"
+    depends_on: subsequent-steps
 
 notify:
   - slack: 
