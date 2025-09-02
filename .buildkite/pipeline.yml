@@ -33,7 +33,7 @@ steps:
 
   - key: "dd_key_test_01"
     label: "Set Key Tag"
-    depends_on: "dd-measure-01"
+    depends_on: "dd-measures-01"
     command: "buildkite-agent meta-data set \"dd_tags.key\" dd_key_test_01"
 
   - trigger: pipeline-2
