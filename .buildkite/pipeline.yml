@@ -20,7 +20,6 @@ steps:
       YAML
       fi
 
-  - wait: ~
   - key: "dd-measures-01"
     label: "Set First Metric"
     depends_on: 
