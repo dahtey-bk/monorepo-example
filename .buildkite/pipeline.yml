@@ -23,12 +23,14 @@ steps:
 
   - key: "dd-measures-01"
     label: "Set First Metric"
+    depends_on: "block-step"
     command: "buildkite-agent meta-data set \"dd_measures.first_metric\" 1"
     env:
       BUILDKITE_MESSAGE: "CUSTOM MESSAGE FROM FIRST METRIC STEP"
 
   - key: "dd_key_test_01"
     label: "Set Key Tag"
+    depends_on: "dd-measure-01"
     command: "buildkite-agent meta-data set \"dd_tags.key\" dd_key_test_01"
 
   - trigger: pipeline-2
