@@ -21,9 +21,12 @@ steps:
       YAML
       fi
 
+  - wait: ~
   - key: "dd-measures-01"
     label: "Set First Metric"
-    depends_on: "block-step"
+    depends_on: 
+      - step: "block-step"
+      - step: "lint-step"
     command: "buildkite-agent meta-data set \"dd_measures.first_metric\" 1"
     env:
       BUILDKITE_MESSAGE: "CUSTOM MESSAGE FROM FIRST METRIC STEP"
