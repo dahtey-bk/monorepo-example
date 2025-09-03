@@ -1,12 +1,17 @@
 steps:
-  - label: "Run script and conditionally upload status notifier"
+  - label: "Run the script"
+    command: "./script.sh"
+    key: "script-step"
+    allow_failure: true
+  - label: "Block build only if lint failed"
+    depends_on: "lint-step"
     command: |
-      if ! ./script.sh; then
-        cat <<- YAML | buildkite-agent pipeline upload
-        steps:
-          - label: "Notify GitHub of failure"
-            notify:
-              - github_commit_status:
-                  context: "my-custom-status"
-      YAML
+      if [ $(buildkite-agent step get "outcome" --step "script-step") == "soft_failed" ]; then
+         cat <<- YAML | buildkite-agent pipeline upload
+         steps:
+           - label: "Update commit status"
+             notify:
+               - github_commit_status:
+                   context: "my-custom-status"
+         YAML
       fi
