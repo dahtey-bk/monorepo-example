@@ -13,6 +13,6 @@ steps:
              command: "echo Notifying GitHub"
              notify:
                - github_commit_status:
-                 context: "my-custom-status"
+                   context: "my-custom-status"
       YAML
       fi
