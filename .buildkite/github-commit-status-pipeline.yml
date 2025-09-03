@@ -2,12 +2,11 @@ steps:
   - label: "Run script and conditionally upload status notifier"
     command: |
       if ! ./script.sh; then
-        cat <<YAML | buildkite-agent pipeline upload
+        cat <<- YAML | buildkite-agent pipeline upload
         steps:
-          - wait
           - label: "Notify GitHub of failure"
             notify:
               - github_commit_status:
                   context: "my-custom-status"
-        YAML
+      YAML
       fi
