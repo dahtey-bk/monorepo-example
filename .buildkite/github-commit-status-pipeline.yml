@@ -3,4 +3,5 @@ steps:
   command: "script.sh"
   notify:
     - github_commit_status:
-        context: "my-custom-status"
+        context: "custom-failed-status"
+      if: step.finished
