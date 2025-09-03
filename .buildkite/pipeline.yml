@@ -1,4 +1,10 @@
 steps:
+  - label: "Extend Terminal Session"
+    command: |
+      ./script.sh
+      echo "Starting job..."
+      sleep 600  # Sleep for 10 minutes
+      echo "Job complete."
   - command: pylint myfile
     soft_fail: true
     key: 'lint-step'
@@ -103,12 +109,6 @@ steps:
     label: "Set Last Metric"
     command: "buildkite-agent meta-data set \"dd_measures.last_metric\" 2"
     depends_on: subsequent-steps
-
-  - label: "Extend Terminal Session"
-    command: |
-      echo "Starting job..."
-      sleep 600  # Sleep for 10 minutes
-      echo "Job complete."
 
 notify:
   - slack: 
