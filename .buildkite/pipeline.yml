@@ -113,6 +113,7 @@ steps:
 notify:
   - slack: 
       channels: 
-        - "#dahtey-test-channel"
+        - "#dahtey-test-channel@Dahtey"
+        - "#dahtey-test-channel@D09AB31EJ11"
       message: "Whole build finished message"
     if: build.branch == "main"
