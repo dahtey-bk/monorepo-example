@@ -1,7 +1,7 @@
 steps:
   - label: "Extend Terminal Session"
     command: |
-      ./script.sh
+      touch testfile.txt
       echo "Starting job..."
       sleep 600  # Sleep for 10 minutes
       echo "Job complete."
