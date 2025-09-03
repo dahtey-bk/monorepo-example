@@ -4,7 +4,7 @@ steps:
     key: "script-step"
     soft_fail: true
   - label: "Block build only if lint failed"
-    depends_on: "lint-step"
+    depends_on: "script-step"
     command: |
       if [ $(buildkite-agent step get "outcome" --step "script-step") == "soft_failed" ]; then
          cat <<- YAML | buildkite-agent pipeline upload
