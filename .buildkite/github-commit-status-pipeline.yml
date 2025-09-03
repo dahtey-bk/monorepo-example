@@ -12,6 +12,6 @@ steps:
            - label: "Update commit status"
              notify:
                - github_commit_status:
-                   context: "my-custom-status"
-         YAML
+                 context: "my-custom-status"
+      YAML
       fi
