@@ -4,4 +4,4 @@ steps:
   notify:
     - github_commit_status:
         context: "custom-failed-status"
-      if: step.failed
+      # if: step.failed
