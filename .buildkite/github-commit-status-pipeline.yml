@@ -2,7 +2,7 @@ steps:
   - label: "Run the script"
     command: "./script.sh"
     key: "script-step"
-    allow_failure: true
+    soft_fail: true
   - label: "Block build only if lint failed"
     depends_on: "lint-step"
     command: |
