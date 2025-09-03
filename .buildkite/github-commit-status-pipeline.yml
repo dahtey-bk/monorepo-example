@@ -10,6 +10,7 @@ steps:
          cat <<- YAML | buildkite-agent pipeline upload
          steps:
            - label: "Update commit status"
+             command: "echo Notifying GitHub"
              notify:
                - github_commit_status:
                  context: "my-custom-status"
