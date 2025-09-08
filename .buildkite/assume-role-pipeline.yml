@@ -5,7 +5,6 @@ steps:
     plugins:
       - aws-assume-role-with-web-identity#v1.4.0:
           role-arn: arn:aws:iam::097340723131:role/dahtey-buildkite-Role
-          region: ap-southeast-2
   - command: echo env
     key: "step2"
     label: "Print env"
