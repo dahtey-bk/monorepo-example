@@ -1,5 +1,8 @@
 steps:
-  - command: aws sts get-caller-identity
+  - command: |
+      aws sts get-caller-identity
+      echo "Token file: $AWS_WEB_IDENTITY_TOKEN_FILE"
+      cat "$AWS_WEB_IDENTITY_TOKEN_FILE" | cut -d '.' -f2 | base64 -d | jq .
     key: "step1"
     label: "Get Caller Identity"
     plugins:
