@@ -16,4 +16,4 @@ steps:
       BUILDKITE_S3_DEFAULT_REGION: "ap-southeast-2"
       BUILDKITE_ARTIFACT_UPLOAD_DESTINATION: "s3://dahteys-test-bucket/"
     key: "step2"
-    depends_on: step1
+    # depends_on: step1
