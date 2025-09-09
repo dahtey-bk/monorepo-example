@@ -14,7 +14,7 @@ steps:
       - buildkite-agent artifact upload test1.txt
     env:
       BUILDKITE_S3_ACL: "private"
-      BUILDKITE_S3_ACCESS_URL: "https://ap-southeast-2.console.aws.amazon.com/s3/buckets/dahteys-test-bucket?region=ap-southeast-2&bucketType=general&tab=objects"
+      # BUILDKITE_S3_ACCESS_URL: "https://ap-southeast-2.console.aws.amazon.com/s3/buckets/dahteys-test-bucket?region=ap-southeast-2&bucketType=general&tab=objects"
       BUILDKITE_S3_DEFAULT_REGION: "ap-southeast-2"
       BUILDKITE_ARTIFACT_UPLOAD_DESTINATION: "s3://dahteys-test-bucket/"
     key: "step2"
