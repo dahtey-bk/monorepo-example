@@ -8,7 +8,12 @@ steps:
     plugins:
       - aws-assume-role-with-web-identity#v1.4.0:
           role-arn: arn:aws:iam::097340723131:role/buildkite-dahtey-Role
-  - command: env
+  - label: "Upload to ap-southeast-2 bucket"
+    command:
+      - echo "hello world" > test1.txt
+      - buildkite-agent artifact upload test1.txt
+    env:
+      BUILDKITE_S3_DEFAULT_REGION: "ap-southeast-2"
+      BUILDKITE_ARTIFACT_UPLOAD_DESTINATION: "s3://dahteys-test-bucket/"
     key: "step2"
-    label: "Print env"
     depends_on: step1
