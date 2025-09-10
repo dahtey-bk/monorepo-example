@@ -1,0 +1,5 @@
+steps:
+    - label: "Test Script"
+      command: |
+        bash test_script.sh \
+          --custom-cypress-env-json "$$CYPRESS_CUSTOM_CYPRESS_ENV_JSON" 
