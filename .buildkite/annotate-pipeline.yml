@@ -1,4 +1,11 @@
 steps:
+  - label: ":information_source: Echo env"
+    key: echo-env
+    command: |
+      echo "BUILDKITE_BUILD_NUMBER=${BUILDKITE_BUILD_NUMBER}"
+      echo "BUILDKITE_BRANCH=${BUILDKITE_BRANCH}"
+      echo "BUILDKITE_AGENT_NAME=${BUILDKITE_AGENT_NAME}"
+
   - label: annotate
     plugins:
       - bugcrowd/test-summary#v1.8.0:
@@ -9,4 +16,3 @@ steps:
           formatter:
             type: details
           context: test-summary
-
