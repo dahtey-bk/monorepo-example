@@ -2,7 +2,7 @@ steps:
   - label: "Test - Should SKIP if amp present"
     key: "test_conditional"
     if: "!build.pull_request.labels includes \"amp\""
-    command: echo "This should NOT run if amp label is present."
+    command: echo "This should NOT run if amp label is presents."
 
   - label: "Test - Should RUN if amp present"  
     key: "test_conditional_opposite"
