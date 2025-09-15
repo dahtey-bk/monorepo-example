@@ -7,7 +7,7 @@ steps:
   - label: "Test - Should RUN if amp present"  
     key: "test_conditional_opposite"
     if: build.pull_request.labels includes "amp"
-    command: echo "This SHOULD run if amp label is present"
+    command: echo "This SHOULD run if amp label is present."
   # - label: "Extend Terminal Session"
   #   command: |
   #     touch testfile.txt
