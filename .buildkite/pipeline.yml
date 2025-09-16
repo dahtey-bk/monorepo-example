@@ -2,7 +2,7 @@ retry_policy: &retry_policy
   automatic:
     - exit_status: -1
       limit: 2
-    - exit_status: 255
+    - exit_status: 127
       limit: 2
 
 steps:
