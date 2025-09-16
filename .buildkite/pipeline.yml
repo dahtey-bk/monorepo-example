@@ -1,22 +1,30 @@
-steps:
-  - label: "Test - Should SKIP if amp present"
-    key: "test_conditional"
-    if: "!build.pull_request.labels includes \"amp\""
-    command: echo "This should NOT run if amp label is presents."
+retry_policy: &retry_policy
+  automatic:
+    - exit_status: -1
+      limit: 2
+    - exit_status: 255
+      limit: 2
 
-  - label: "Test - Should RUN if amp present"  
-    key: "test_conditional_opposite"
-    if: "build.pull_request.labels includes \"amp\""
-    command: echo "This SHOULD run if amp label is presents."
+steps:
+  # - label: "Test - Should SKIP if amp present"
+  #   key: "test_conditional"
+  #   if: "!build.pull_request.labels includes \"amp\""
+  #   command: echo "This should NOT run if amp label is presents."
+
+  # - label: "Test - Should RUN if amp present"  
+  #   key: "test_conditional_opposite"
+  #   if: "build.pull_request.labels includes \"amp\""
+  #   command: echo "This SHOULD run if amp label is presents."
   # - label: "Extend Terminal Session"
   #   command: |
   #     touch testfile.txt
   #     echo "Starting job..."
   #     sleep 600  # Sleep for 10 minutes
   #     echo "Job complete."
-#   - command: pylint myfile
-#     soft_fail: true
-#     key: 'lint-step'
+  - command: pylint myfile
+    # soft_fail: true
+    key: 'lint-step'
+    retry: *retry_policy
 #   - label: "Block build only if lint failed"
 #     depends_on: "lint-step"
 #     command: |
