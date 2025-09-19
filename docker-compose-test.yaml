@@ -1,0 +1,73 @@
+version: '3.6'
+
+x-main: &main
+  build:
+    context: .
+    dockerfile: Dockerfile.test
+  depends_on:
+    - postgres
+    - redis
+  environment:
+    - RAILS_ENV=test
+    - DB_HOST=localhost
+    - DB_USERNAME=admin
+    - DB_PASSWORD=admin
+    - PGPASSWORD=admin
+    - REDIS_URL=redis://redis:6379
+    - TEMPLATE_DIR=tmp/templates.js
+  restart: on-failure:5
+
+services:
+  web:
+    <<: *main
+    command: web
+    ports:
+      - '5001'
+    entrypoint: '.buildkite/entrypoint.sh'
+    networks:
+      - basic-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  postgres:
+    image: "public.ecr.aws/docker/library/postgres:15-bookworm"
+    restart: on-failure:5
+    ports:
+      - '5432'
+    environment:
+      - POSTGRES_USER=
+      - POSTGRES_PASSWORD=
+    tmpfs:
+      - /var/lib/postgresql/data
+    networks:
+      - basic-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  redis:
+    image: avant.jfrog.io/main-oci/redis
+    tmpfs:
+      - /data
+    networks:
+      - basic-network
+    restart: on-failure:5
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+networks:
+  basic-network:
+    driver: bridge
+    name: basic-${BUILDKITE_JOB_ID}-${BUILDKITE_PARALLEL_JOB:-0}-network
+    attachable: true
+    labels:
+      - "com.buildkite.job=${BUILDKITE_JOB_ID}"
+

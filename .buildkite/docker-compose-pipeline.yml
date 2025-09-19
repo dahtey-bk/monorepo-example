@@ -1,0 +1,27 @@
+steps:
+  - label: ":ruby: Rubocop"
+    parallelism: 10
+    # command: ".buildkite/run_rubocop"
+    plugins:
+    # - github.com/buildkite-plugins/ecr-buildkite-plugin#v1.1.4:
+    #     login: true
+    #     region: us-east-2
+    #   account_ids: '926494997070'
+  # - github.com/buildkite-plugins/artifacts-buildkite-plugin#v1.3.0:
+  #     download: docker-compose-test.yml
+  - github.com/buildkite-plugins/docker-compose-buildkite-plugin#v5.6.0:
+      env:
+      - CI
+      - GLOBAL_TIME_TRAVEL_DATE
+      - BUILDKITE_BUILD_ID
+      - BUILDKITE_JOB_ID
+      - BUILDKITE_AGENT_ACCESS_TOKEN
+      run: web
+      wait: true
+      config: ./docker-compose-test.yml
+      volumes:
+      - "/usr/bin/buildkite-agent:/usr/bin/buildkite-agent"
+    #   cache-from:
+    #   - web:926494997070.dkr.ecr.us-east-2.amazonaws.com/avant-basic:test-39afe92a05095194de90dad00b93cd16986398a7
+      cli-version: 2
+      skip-checkout: true
