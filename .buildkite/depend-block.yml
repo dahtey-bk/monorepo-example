@@ -28,3 +28,12 @@ steps:
     depends_on:
       - "step1" 
       - "step2"
+  
+  - label: "Post Block Step"
+    command: |
+      echo "Running step 2..."
+      sleep 5
+      echo "Step 2 done"
+    key: "post-block-step"
+    depends_on:
+      - "dynamic-block"
