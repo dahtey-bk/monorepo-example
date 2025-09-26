@@ -1,0 +1,30 @@
+steps:
+  - label: "Step 1"
+    command: |
+      echo "Running step 1..."
+      sleep 10
+      echo "Step 1 done"
+    key: "step1"
+
+  - label: "Step 2"
+    command: |
+      echo "Running step 2..."
+      sleep 5
+      echo "Step 2 done"
+    key: "step2"
+
+  # Traditional block - appears immediately
+  - block: "Traditional Block (immediate)"
+    key: "traditional-block"
+
+  # Command that uploads block after dependencies
+  - label: "Upload Block After Steps"
+    command: |
+      cat <<EOF | buildkite-agent pipeline upload
+      steps:
+        - block: "Dynamic Block (after dependencies)"
+          key: "dynamic-block"
+      EOF
+    depends_on:
+      - "step1" 
+      - "step2"
