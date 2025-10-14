@@ -1,4 +1,12 @@
 steps:
+  - label: "Custom repository checkout"
+    command: "echo hello"
+    plugins:
+      - custom-checkout#v1.5.0:
+          repos:
+            - url: "${BUILDKITE_REPO}"
+              skip_checkout: false
+              clone_flags: ["-v", "--depth=1"]
   - label: "Extend Terminal Session"
     command: |
       touch testfile.txt
