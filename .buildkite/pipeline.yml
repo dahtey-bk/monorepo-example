@@ -8,7 +8,7 @@ steps:
           repos:
             - url: "${BUILDKITE_REPO}"
               skip_checkout: false
-              clone_flags: ["-v", "--depth=1"]
+              clone_flags: ["-v", "--depth=1", "--branch=${BUILDKITE_BRANCH}"]
 #   - label: "Extend Terminal Session"
 #     command: |
 #       touch testfile.txt
