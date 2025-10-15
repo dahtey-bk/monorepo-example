@@ -1,5 +1,5 @@
 env:
-  - BUILDKITE_CLEAN_CHECKOUT="true"
+  BUILDKITE_CLEAN_CHECKOUT: "true"
 steps:
   - label: "Custom repository checkout"
     command: "echo hello"
