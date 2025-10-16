@@ -1,5 +1,6 @@
 env:
   BUILDKITE_CLEAN_CHECKOUT: "true"
+  AWS_ACCOUNT_NAME: planning-dev
 steps:
   - label: "Custom repository checkout"
     command: "echo hello"
