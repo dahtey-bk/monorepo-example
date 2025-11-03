@@ -1,5 +1,5 @@
 steps:
-  - label: "Extend Terminal Session"
+  - label: "Extend Terminal Session 2"
     command: |
       touch testfile.txt
       echo "Starting job..."
@@ -35,85 +35,85 @@ steps:
     env:
       BUILDKITE_MESSAGE: "CUSTOM MESSAGE FROM FIRST METRIC STEP"
 
-  - key: "dd_key_test_01"
-    label: "Set Key Tag"
-    depends_on: "dd-measures-01"
-    command: "buildkite-agent meta-data set \"dd_tags.key\" dd_key_test_01"
+  # - key: "dd_key_test_01"
+  #   label: "Set Key Tag"
+  #   depends_on: "dd-measures-01"
+  #   command: "buildkite-agent meta-data set \"dd_tags.key\" dd_key_test_01"
 
-  - trigger: pipeline-2
-    build:
-      env:
-        PREVIOUS_BUILD_NUMBER: "${BUILDKITE_BUILD_NUMBER}"
-      meta_data:
-        SOURCE_BUILD_ID: "${BUILDKITE_BUILD_ID}"
-    key: trigger-pipeline-2
-    label: ":rocket: Deploy event trigger"
-    branches: main
-    depends_on: dd_key_test_01
+  # - trigger: pipeline-2
+  #   build:
+  #     env:
+  #       PREVIOUS_BUILD_NUMBER: "${BUILDKITE_BUILD_NUMBER}"
+  #     meta_data:
+  #       SOURCE_BUILD_ID: "${BUILDKITE_BUILD_ID}"
+  #   key: trigger-pipeline-2
+  #   label: ":rocket: Deploy event trigger"
+  #   branches: main
+  #   depends_on: dd_key_test_01
 
-  - label: Detect changed projects
-    key: diff
-    depends_on: trigger-pipeline-2
-    soft_fail: true
-    plugins:
-      - 'monorepo-diff#v1.5.0':
-          diff: .buildkite/scripts/git-diff-files.sh
-          watch:
-            - path: service-app
-              config:
-                trigger: monorepo-service-app-example
-            - path: test
-              config:
-                trigger: monorepo-test-example
+  # - label: Detect changed projects
+  #   key: diff
+  #   depends_on: trigger-pipeline-2
+  #   soft_fail: true
+  #   plugins:
+  #     - 'monorepo-diff#v1.5.0':
+  #         diff: .buildkite/scripts/git-diff-files.sh
+  #         watch:
+  #           - path: service-app
+  #             config:
+  #               trigger: monorepo-service-app-example
+  #           - path: test
+  #             config:
+  #               trigger: monorepo-test-example
 
-  - command: echo "Running unit tests"
-    label: "Run Unit Tests"
-    key: unit-tests
-    depends_on: diff
+  # - command: echo "Running unit tests"
+  #   label: "Run Unit Tests"
+  #   key: unit-tests
+  #   depends_on: diff
 
-  - command: echo "--> Start of concurrency gate"
-    label: "Start of Concurrency Gate"
-    concurrency_group: gate
-    concurrency: 1
-    key: start-gate
-    depends_on: unit-tests
+  # - command: echo "--> Start of concurrency gate"
+  #   label: "Start of Concurrency Gate"
+  #   concurrency_group: gate
+  #   concurrency: 1
+  #   key: start-gate
+  #   depends_on: unit-tests
   
-  - wait
+  # - wait
   
-  - command: echo "Running deployment to staging environment"
-    label: "Deploy to Staging"
-    key: stage-deploy
-    depends_on: start-gate
+  # - command: echo "Running deployment to staging environment"
+  #   label: "Deploy to Staging"
+  #   key: stage-deploy
+  #   depends_on: start-gate
   
-  - command: echo "Running e2e tests after the deployment"
-    label: "Run E2E Tests"
-    parallelism: 3
-    depends_on:
-      - stage-deploy
-    key: e2e
+  # - command: echo "Running e2e tests after the deployment"
+  #   label: "Run E2E Tests"
+  #   parallelism: 3
+  #   depends_on:
+  #     - stage-deploy
+  #   key: e2e
   
-  - wait
+  # - wait
   
-  - command: echo "End of concurrency gate <--"
-    label: "End of Concurrency Gate"
-    concurrency_group: gate
-    concurrency: 1
-    key: end-gate
+  # - command: echo "End of concurrency gate <--"
+  #   label: "End of Concurrency Gate"
+  #   concurrency_group: gate
+  #   concurrency: 1
+  #   key: end-gate
   
-  - command: echo "This and subsequent steps run independently"
-    label: "Run Subsequent Steps Independently"
-    key: subsequent-steps
-    depends_on: end-gate
+  # - command: echo "This and subsequent steps run independently"
+  #   label: "Run Subsequent Steps Independently"
+  #   key: subsequent-steps
+  #   depends_on: end-gate
 
-  - key: "dd-measures-02"
-    label: "Set Last Metric"
-    command: "buildkite-agent meta-data set \"dd_measures.last_metric\" 2"
-    depends_on: subsequent-steps
+  # - key: "dd-measures-02"
+  #   label: "Set Last Metric"
+  #   command: "buildkite-agent meta-data set \"dd_measures.last_metric\" 2"
+  #   depends_on: subsequent-steps
 
 notify:
   - slack: 
       channels: 
-        - "#dahtey-test-channel@Dahtey"
+        - "#dahtey-test-channel"
         - "#dahtey-test-channel@D09AB31EJ11"
       message: "Whole build finished message"
     if: build.branch == "main"
