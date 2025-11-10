@@ -2,14 +2,16 @@ env:
   BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH: "true"
   BUILDKITE_CLEAN_CHECKOUT: "true"
 
+secrets:
+  - INCIDENTIO_TOKEN
+
 steps:
   - label: "Test incidentio plugin"
     command: exit 1
-    secrets:
-      - INCIDENTIO_TOKEN
+
     plugins:
       - 'ssh://git@github.com/buildkite-plugins/incident-incidentio-buildkite-plugin.git#dev':
-          api-key: buildkite-agent secret get INCIDENTIO_TOKEN
+          api-key: INCIDENTIO_TOKEN
           severity-id: "01HN9MSGFN5GDCN9ZSR64W4096"
           incident-name: "Test Incident"
           incident-summary: "This is a test incident"
