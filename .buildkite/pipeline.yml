@@ -2,7 +2,7 @@ steps:
   - label: "Test incidentio plugin"
     command: exit(1)
     plugins:
-      - 'file:///Users/dahteyleung/Documents/repos/incident-incidentio-buildkite-plugin':
+      - 'file:///Users/dahteyleung/Documents/repos/incident-incidentio-buildkite-plugin#dev':
           api-key: "test-api-key"
           severity-id: "01HN9MSGFN5GDCN9ZSR64W4096"
 
@@ -13,7 +13,7 @@ steps:
       # sleep 600  # Sleep for 10 minutes.
       echo "Job complete."
   - command: pylint myfile
-    soft_fail: true
+    soft_fail: false
     key: 'lint-step'
   - label: "Block build only if lint failed"
     depends_on: "lint-step"
@@ -117,10 +117,10 @@ steps:
   #   command: "buildkite-agent meta-data set \"dd_measures.last_metric\" 2"
   #   depends_on: subsequent-steps
 
-notify:
-  - slack: 
-      channels: 
-        - "#dahtey-test-channel"
-        - "#dahtey-test-channel@D09AB31EJ11"
-      message: "Whole build finished message"
-    if: build.branch == "main"
+# notify:
+#   - slack: 
+#       channels: 
+#         - "#dahtey-test-channel"
+#         - "#dahtey-test-channel@D09AB31EJ11"
+#       message: "Whole build finished message"
+#     if: build.branch == "main"
