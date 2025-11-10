@@ -1,6 +1,6 @@
 steps:
   - label: "Test incidentio plugin"
-    command: exit(1)
+    command: exit 1
     plugins:
       - 'ssh://git@github.com/buildkite-plugins/incident-incidentio-buildkite-plugin.git#dev':
           api-key: "test-api-key"
