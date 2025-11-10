@@ -11,6 +11,9 @@ steps:
       - 'ssh://git@github.com/buildkite-plugins/incident-incidentio-buildkite-plugin.git#dev':
           api-key: "$${INCIDENTIO_TOKEN}"
           severity-id: "01HN9MSGFN5GDCN9ZSR64W4096"
+          incident-name: "Test Incident"
+          incident-summary: "This is a test incident"
+          incident-channel-mode: "public"
 
   - label: "Extend Terminal Session 2"
     command: |
