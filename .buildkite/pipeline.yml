@@ -2,7 +2,7 @@ steps:
   - label: "Test incidentio plugin"
     command: exit(1)
     plugins:
-      - file:///Users/dahteyleung/Documents/repos/incident-incidentio-buildkite-plugin#main"
+      - file:///Users/dahteyleung/Documents/repos/incident-incidentio-buildkite-plugin"
   - label: "Extend Terminal Session 2"
     command: |
       touch testfile.txt
