@@ -2,7 +2,10 @@ steps:
   - label: "Test incidentio plugin"
     command: exit(1)
     plugins:
-      - file:///Users/dahteyleung/Documents/repos/incident-incidentio-buildkite-plugin
+      - 'file:///Users/dahteyleung/Documents/repos/incident-incidentio-buildkite-plugin':
+          api-key: "test-api-key"
+          severity-id: "01HN9MSGFN5GDCN9ZSR64W4096"
+
   - label: "Extend Terminal Session 2"
     command: |
       touch testfile.txt
