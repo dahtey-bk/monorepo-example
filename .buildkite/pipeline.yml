@@ -5,9 +5,11 @@ env:
 steps:
   - label: "Test incidentio plugin"
     command: exit 1
+    secrets:
+      - INCIDENTIO_TOKEN
     plugins:
       - 'ssh://git@github.com/buildkite-plugins/incident-incidentio-buildkite-plugin.git#dev':
-          api-key: "test-api-key"
+          api-key: "$${INCIDENTIO_TOKEN}"
           severity-id: "01HN9MSGFN5GDCN9ZSR64W4096"
 
   - label: "Extend Terminal Session 2"
