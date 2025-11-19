@@ -22,7 +22,7 @@ steps:
       touch testfile.txt
       echo "Starting job..."
       # sleep 600  # Sleep for 10 minutes.
-      echo "Job complete."
+      echo "Job completed."
   - command: pylint myfile
     soft_fail: false
     key: 'lint-step'
