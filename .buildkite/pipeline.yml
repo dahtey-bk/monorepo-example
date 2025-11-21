@@ -3,7 +3,7 @@ env:
   BUILDKITE_CLEAN_CHECKOUT: "true"
 
 secrets:
-  - INCIDENTIO_TOKEN
+  - INCIDENTIO_API_KEY
 
 steps:
   - label: "Test incidentio plugin"
