@@ -10,7 +10,7 @@ steps:
     command: exit 1
     plugins:
       - 'ssh://git@github.com/buildkite-plugins/incident-incidentio-buildkite-plugin.git#dev':
-          severity-id: "01HN9MSGFN5GDCN9ZSR64W4096"
+          severity-name: "SEV-5"
           # incident-name: "Test Incident"
           # incident-summary: "This is a test incident"
           # incident-channel-mode: "public"
