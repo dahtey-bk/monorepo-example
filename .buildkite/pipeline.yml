@@ -7,7 +7,7 @@ secrets:
 
 steps:
   - label: "Test incidentio plugin"
-    command: exit 0
+    command: exit 1
     plugins:
       - 'ssh://git@github.com/buildkite-plugins/incident-incidentio-buildkite-plugin.git#dev':
           severity-name: "SEV-5"
