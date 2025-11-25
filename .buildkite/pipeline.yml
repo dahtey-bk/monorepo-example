@@ -2,15 +2,15 @@ env:
   BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH: "true"
   BUILDKITE_CLEAN_CHECKOUT: "true"
 
-secrets:
-  - INCIDENTIO_API_KEY
+# secrets:
+#   - INCIDENTIO_API_KEY
 
 steps:
-  - label: "Test incidentio plugin"
-    command: exit 1
-    plugins:
-      - 'ssh://git@github.com/buildkite-plugins/incident-incidentio-buildkite-plugin.git#dev':
-          severity-name: "SEV-5"
+  # - label: "Test incidentio plugin"
+  #   command: exit 1
+  #   plugins:
+  #     - 'ssh://git@github.com/buildkite-plugins/incident-incidentio-buildkite-plugin.git#dev':
+  #         severity-name: "SEV-5"
           # incident-name: "Test Incident"
           # incident-summary: "This is a test incident"
           # incident-channel-mode: "public"
@@ -19,37 +19,37 @@ steps:
     command: |
       touch testfile.txt
       echo "Starting job..."
-      # sleep 600  # Sleep for 10 minutes.
+      sleep 60
       echo "Job completed."
-  - command: pylint myfile
-    soft_fail: false
-    key: 'lint-step'
-  - label: "Block build only if lint failed"
-    depends_on: "lint-step"
-    command: |
-      if [ $(buildkite-agent step get "outcome" --step "lint-step") == "soft_failed" ]; then
-         cat <<- YAML | buildkite-agent pipeline upload
-         steps:
-           - label: "Notify slack about soft failed step"
-             command: echo "Notifying slack about the soft_failed step"
-             notify:
-               - slack:
-                   channels:
-                     - "#dahtey-test-channel"
-                   message: "Step1 has soft failed."
-           - block: "Lint failed"
-             key: "block-step"
-      YAML
-      fi
+  # - command: pylint myfile
+  #   soft_fail: false
+  #   key: 'lint-step'
+  # - label: "Block build only if lint failed"
+  #   depends_on: "lint-step"
+  #   command: |
+  #     if [ $(buildkite-agent step get "outcome" --step "lint-step") == "soft_failed" ]; then
+  #        cat <<- YAML | buildkite-agent pipeline upload
+  #        steps:
+  #          - label: "Notify slack about soft failed step"
+  #            command: echo "Notifying slack about the soft_failed step"
+  #            notify:
+  #              - slack:
+  #                  channels:
+  #                    - "#dahtey-test-channel"
+  #                  message: "Step1 has soft failed."
+  #          - block: "Lint failed"
+  #            key: "block-step"
+  #     YAML
+  #     fi
 
-  - key: "dd-measures-01"
-    label: "Set First Metric"
-    depends_on: 
-      - step: "block-step"
-      - step: "lint-step"
-    command: "buildkite-agent meta-data set \"dd_measures.first_metric\" 1"
-    env:
-      BUILDKITE_MESSAGE: "CUSTOM MESSAGE FROM FIRST METRIC STEP"
+  # - key: "dd-measures-01"
+  #   label: "Set First Metric"
+  #   depends_on: 
+  #     - step: "block-step"
+  #     - step: "lint-step"
+  #   command: "buildkite-agent meta-data set \"dd_measures.first_metric\" 1"
+  #   env:
+  #     BUILDKITE_MESSAGE: "CUSTOM MESSAGE FROM FIRST METRIC STEP"
 
   # - key: "dd_key_test_01"
   #   label: "Set Key Tag"
