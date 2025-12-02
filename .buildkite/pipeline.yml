@@ -3,7 +3,7 @@ retry_policy: &retry_policy
     - exit_status: -1
       limit: 2
     - exit_status: 127
-      limit: 2
+      limit: 3
 
 steps:
   - label: "Example"
