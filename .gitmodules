@@ -1,0 +1,3 @@
+[submodule "scaffold-core"]
+    path = scaffold-core
+    url = https://github.com/dahtey-bk//private-repo.git
