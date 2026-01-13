@@ -17,7 +17,7 @@ steps:
   - label: "Testing private plugins"
     command: echo "hello"
     plugins:
-        - github.com/dahtey-bk/private-repo#v0.1.0: ~
+        - github.com/dahtey-bk/private-repo#main: ~
   - label: "Extend Terminal Session 2"
     command: |
       touch testfile.txt
