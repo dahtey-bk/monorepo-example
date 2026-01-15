@@ -14,10 +14,12 @@ steps:
           # incident-name: "Test Incident"
           # incident-summary: "This is a test incident"
           # incident-channel-mode: "public"
-  - label: "Testing private plugins"
-    commands:
+  - label: "Test post-command retry"
+    commands: 
       - echo "hello"
-      - exit 1
+      - exit -1
+  - label: "Testing private plugins"
+    command: echo "hello"
     plugins:
         - github.com/dahtey-bk/private-repo#main: ~
   - label: "Extend Terminal Session 2"
