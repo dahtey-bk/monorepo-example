@@ -6,6 +6,12 @@ secrets:
   - INCIDENTIO_API_KEY
 
 steps:
+  - command: buildkite-agent pipeline upload .buildkite/annotate-pipeline.yml
+    label: ":pipeline: main"
+    if_changed:
+      include: ".buildkite/**"
+      exclude: "{.buildkite/scripts/**}"
+
   # - label: "Test incidentio plugin"
   #   command: exit 1
   #   plugins:
