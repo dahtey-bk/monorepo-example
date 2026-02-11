@@ -9,9 +9,17 @@ steps:
     #       formatter:
     #         type: details
     #       context: test-summary
-    command: "mkdir artifacts && touch artifacts/report.xml"
-    artifact_paths: "artifacts/*.xml"
-  - wait
-  - label: "Annotate test results"
-    command: ":true"
+    command: |
+      mkdir -p artifacts
+      cat > artifacts/rspec-results.xml <<EOF
+      <?xml version="1.0" encoding="UTF-8"?>
+      <testsuite tests="3" failures="1">
+          <testcase name="test 1" classname="MyTest" time="0.5"/>
+          <testcase name="test 2" classname="MyTest" time="0.3">
+            <failure message="Expected true but got false"/>
+          </testcase>
+          <testcase name="test 3" classname="MyTest" time="0.2"/>
+        </testsuite>
+        EOF
+      artifact_paths: "artifacts/*.xml"
 
