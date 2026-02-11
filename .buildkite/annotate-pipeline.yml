@@ -1,14 +1,14 @@
 steps:
   - label: annotate
-    plugins:
-      - github.com/bugcrowd/test-summary-buildkite-plugin#v1.9.0:
-          inputs:
-            - label: rspec
-              artifact_path: artifacts/rspec*
-              type: junit
-          formatter:
-            type: details
-          context: test-summary
+    # plugins:
+    #   - github.com/bugcrowd/test-summary-buildkite-plugin#v1.9.0:
+    #       inputs:
+    #         - label: rspec
+    #           artifact_path: artifacts/rspec*
+    #           type: junit
+    #       formatter:
+    #         type: details
+    #       context: test-summary
     command: |
       mkdir -p artifacts
       cat > artifacts/rspec-results.xml <<EOF
@@ -21,5 +21,5 @@ steps:
           <testcase name="test 3" classname="MyTest" time="0.2"/>
         </testsuite>
         EOF
-      artifact_paths: "artifacts/*.xml"
+    artifact_paths: "artifacts/*.xml"
 
