@@ -9,7 +9,7 @@ steps:
     #       formatter:
     #         type: details
     #       context: test-summary
-    command: "touch artifacts/report.xml"
+    command: "mkdir artifacts && touch artifacts/report.xml"
     artifact_paths: "artifacts/*.xml"
   - wait
   - label: "Annotate test results"
