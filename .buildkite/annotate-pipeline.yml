@@ -1,7 +1,7 @@
 steps:
   - label: annotate
     plugins:
-      - github.com/bugcrowd/test-summary-buildkite-plugin#v1.7.0:
+      - github.com/bugcrowd/test-summary-buildkite-plugin#v1.9.0:
           inputs:
             - label: rspec
               artifact_path: artifacts/rspec*
