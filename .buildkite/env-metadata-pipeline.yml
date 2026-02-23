@@ -1,5 +1,6 @@
 steps:
-  - trigger: pipeline-2a
+  - trigger: pipeline-2
+    label: ":pipeline: Trigger pipeline-2"
     build:
       env:
         PREVIOUS_BUILD_NUMBER: "${BUILDKITE_BUILD_NUMBER}"
