@@ -1,3 +1,0 @@
-[submodule "private-repo"]
-    path = private-repo
-    url = https://github.com/dahtey-bk/private-repo.git
