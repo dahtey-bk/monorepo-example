@@ -22,7 +22,7 @@ steps:
           # incident-channel-mode: "public"
   - label: "Test post-command retry"
     commands: 
-      - echo "hello"
+      - echo "hellos"
   #     - exit -1
   # - label: "Testing private plugins"
   #   command: echo "hello"
