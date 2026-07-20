@@ -24,11 +24,11 @@ steps:
     commands: 
       - echo "hellosss"
 
-  - label: ":golang: Test {{ matrix }}"
+  - label: ":golang: Test {{matrix}}"
     matrix:
       - bin
       - .buildkite
-    command: "echo ./component/{{ matrix }}/..."
+    command: "echo ./component/{{matrix}}/..."
     if_changed:
       - "test/**"
   #     - exit -1
