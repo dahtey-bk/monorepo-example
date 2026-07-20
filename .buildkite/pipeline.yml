@@ -23,6 +23,14 @@ steps:
   - label: "Test post-command retry"
     commands: 
       - echo "hellosss"
+
+  - label: ":golang: Test {{ matrix }}"
+    matrix:
+      - bin
+      - .buildkite
+    command: "echo ./component/{{ matrix }}/..."
+    if_changed:
+      - "test/{{ matrix }}/**"
   #     - exit -1
   # - label: "Testing private plugins"
   #   command: echo "hello"
