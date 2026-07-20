@@ -30,7 +30,7 @@ steps:
       - .buildkite
     command: "echo ./component/{{ matrix }}/..."
     if_changed:
-      - "test/{{ matrix }}/**"
+      - "test/**"
   #     - exit -1
   # - label: "Testing private plugins"
   #   command: echo "hello"
